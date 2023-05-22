@@ -69,7 +69,6 @@
         <spring-cloud-alibaba.version>2.2.9.RELEASE</spring-cloud-alibaba.version>
     </properties>
 
-
     <dependencyManagement>
         <dependencies>
             <dependency>
