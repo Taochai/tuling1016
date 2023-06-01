@@ -1,5 +1,6 @@
 package com.tuling.tulingmall.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.tuling.tulingmall.common.api.CommonResult;
 import com.tuling.tulingmall.dao.PortalProductDao;
 import com.tuling.tulingmall.domain.*;
@@ -13,7 +14,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +40,7 @@ public class PortalProductController {
             @ApiImplicitParam(name = "flashPromotionSessionId",value = "活动场次ID,例如:12点场",paramType = "query",dataType = "long")
     })
     @RequestMapping(value = "/productInfo/{id}", method = RequestMethod.GET)
+    @SentinelResource("getProductInfo")
     public CommonResult getProductInfo(@PathVariable Long id) {
         PmsProductParam pmsProductParam=pmsProductService.getProductInfo(id);
         return CommonResult.success(pmsProductParam);

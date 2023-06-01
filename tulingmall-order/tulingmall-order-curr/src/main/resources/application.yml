@@ -6,9 +6,10 @@ feign:
         loggerLevel: full
         requestInterceptors:
           - com.tuling.tulingmall.ordercurr.feignapi.interceptor.HeaderInterceptor
-        readTimeout: 6000
-        connectTimeout: 3000
-
+        readTimeout: 10000
+        connectTimeout: 5000
+  sentinel:
+    enabled: true
 
 mybatis:
   configuration:
@@ -19,6 +20,47 @@ spring:
   datasource:
     dynamic:
       primary: order
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.65.103:8000
+      datasource:
+        flow-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-flow-rules
+            groupId: SENTINEL_GROUP   # 注意groupId对应Sentinel Dashboard中的定义
+            data-type: json
+            rule-type: flow
+        degrade-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-degrade-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: degrade
+        param-flow-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-param-flow-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: param-flow
+        authority-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-authority-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: authority
+        system-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-system-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: system
+
 #支付-当面付qrcode存储与访问路径设置
 #trade:
 #  zhifu:

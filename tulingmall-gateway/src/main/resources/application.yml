@@ -1,9 +1,28 @@
 server:
   port: 8888
-#spring:
-#  application:
-#    name: tulingmall-gateway
-#  cloud:
+spring:
+  application:
+    name: tulingmall-gateway
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 192.168.65.103:8000
+
+      datasource:
+        gateway-flow-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-gateway-flow-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: gw-flow
+        gateway-api-rules:
+          nacos:
+            server-addr: 192.168.65.103:8848
+            dataId: ${spring.application.name}-gateway-api-rules
+            groupId: SENTINEL_GROUP
+            data-type: json
+            rule-type: gw-api-group
 #    gateway:
 #      discovery:
 #        locator:

@@ -83,6 +83,7 @@ public class StockManageServiceImpl implements StockManageService {
     这里是先查再减，会有并发问题。
     * 实际扣减时也要判断商品库存是否足够扣减，否则会出现超卖*/
     @Override
+    @Transactional
     public CommonResult lockStock(List<CartPromotionItem> cartPromotionItemList) {
         try {
             for (CartPromotionItem cartPromotionItem : cartPromotionItemList) {

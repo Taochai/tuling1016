@@ -3,14 +3,16 @@ package com.tuling.tulingmall.ordercurr.feignapi.ums;//package com.tuling.tuling
 import com.tuling.tulingmall.common.api.CommonResult;
 import com.tuling.tulingmall.ordercurr.model.UmsMemberReceiveAddress;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
 * @desc: 类的描述:远程调用 会员中心获取具体收获地址
 */
-@FeignClient(name = "tulingmall-member",path = "/member")
+@FeignClient(name = "tulingmall-member",path = "/member",
+        fallbackFactory = UmsMemberFeginFallbackFactory.class)
 public interface UmsMemberFeignApi {
 
     @RequestMapping(value = "/address/{id}", method = RequestMethod.GET)

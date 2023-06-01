@@ -80,6 +80,17 @@
             <version>1.5.1</version>
         </dependency>
 
+        <!--添加Sentinel的依赖-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
         <!-- 加入rocketmq -->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
