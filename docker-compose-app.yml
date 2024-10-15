@@ -1,0 +1,116 @@
+version: "3"
+services:
+  tulingmall-authcenter:
+    image: tulingmall-authcenter:0.0.5  #指定镜像名称
+    build: ./tulingmall-authcenter  #指定Dockfile所在路径
+    container_name: tulingmall-authcenter  #指定启动容器名称
+    ports:
+      - 9999:9999
+    volumes:
+      - /etc/localtime:/etc/localtime:ro  #同步宿主机与容器时间，ro代表readonly只读
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-authcenter -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE #这个参数是让docker能支持在容器里能执行jdk自带的类似jinfo，jmap这些命令，如果不需要在容器里执行这些命令可以不加
+  tulingmall-gateway:
+    image: tulingmall-gateway:0.0.5
+    build: ./tulingmall-gateway
+    container_name: tulingmall-gateway
+    ports:
+      - 8888:8888
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-gateway -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    depends_on:
+      - tulingmall-authcenter #gateway在authcenter启动之后再启动
+    cap_add:
+      - SYS_PTRACE
+  tulingmall-member:
+    image: tulingmall-member:0.0.5
+    build: ./tulingmall-member
+    container_name: tulingmall-member
+    ports:
+      - 8877:8877
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-member -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE
+  tulingmall-product:
+    image: tulingmall-product:0.0.5
+    build: ./tulingmall-product
+    container_name: tulingmall-product
+    ports:
+      - 8866:8866
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-product -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE
+  tulingmall-order-curr:
+    image: tulingmall-order-curr:0.0.5
+    build: ./tulingmall-order-curr
+    container_name: tulingmall-order-curr
+    ports:
+      - 8844:8844
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-order-curr -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE
+  tulingmall-cart:
+    image: tulingmall-cart:0.0.5
+    build: ./tulingmall-cart
+    container_name: tulingmall-cart
+    ports:
+      - 8855:8855
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-cart -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE
+  tulingmall-unqid:
+    image: tulingmall-unqid:0.0.5
+    build: ./tulingmall-unqid
+    container_name: tulingmall-unqid
+    ports:
+      - 8833:8833
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-unqid -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE
+  tulingmall-search:
+    image: tulingmall-search:0.0.5
+    build: ./tulingmall-search
+    container_name: tulingmall-search
+    ports:
+      - 8054:8054
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /skywalking-agent:/skywalking-agent
+    environment:
+      - SPRING_CLOUD_NACOS_CONFIG_SERVER_ADDR=192.168.65.174:8848
+      - JAVA_TOOL_OPTIONS=-Xmx1g -Xms1g -XX:MaxMetaspaceSize=512m -javaagent:/skywalking-agent/skywalking-agent.jar -DSW_AGENT_NAME=tulingmall-search -DSW_AGENT_COLLECTOR_BACKEND_SERVICES=192.168.65.204:11800
+    cap_add:
+      - SYS_PTRACE

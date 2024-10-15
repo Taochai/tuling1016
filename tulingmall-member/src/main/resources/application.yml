@@ -1,7 +1,6 @@
 server:
   port: 8877
 
-
 #spring:
 #  rabbitmq:
 #    host: 192.168.159.8
@@ -28,8 +27,6 @@ mybatis:
 #      orderId: "portal:orderId:"
 #    expire:
 #      authCode: 90 # 验证码超期时间
-
-spring:
   # 选择redis为session存储
   session:
     store-type: redis

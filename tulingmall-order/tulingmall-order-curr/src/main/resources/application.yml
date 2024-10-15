@@ -23,39 +23,39 @@ spring:
   cloud:
     sentinel:
       transport:
-        dashboard: 192.168.65.103:8000
+        dashboard: 192.168.65.204:8000
       datasource:
         flow-rules:
           nacos:
-            server-addr: 192.168.65.103:8848
+            server-addr: 192.168.65.174:8848
             dataId: ${spring.application.name}-flow-rules
             groupId: SENTINEL_GROUP   # 注意groupId对应Sentinel Dashboard中的定义
             data-type: json
             rule-type: flow
         degrade-rules:
           nacos:
-            server-addr: 192.168.65.103:8848
+            server-addr: 192.168.65.174:8848
             dataId: ${spring.application.name}-degrade-rules
             groupId: SENTINEL_GROUP
             data-type: json
             rule-type: degrade
         param-flow-rules:
           nacos:
-            server-addr: 192.168.65.103:8848
+            server-addr: 192.168.65.174:8848
             dataId: ${spring.application.name}-param-flow-rules
             groupId: SENTINEL_GROUP
             data-type: json
             rule-type: param-flow
         authority-rules:
           nacos:
-            server-addr: 192.168.65.103:8848
+            server-addr: 192.168.65.174:8848
             dataId: ${spring.application.name}-authority-rules
             groupId: SENTINEL_GROUP
             data-type: json
             rule-type: authority
         system-rules:
           nacos:
-            server-addr: 192.168.65.103:8848
+            server-addr: 192.168.65.174:8848
             dataId: ${spring.application.name}-system-rules
             groupId: SENTINEL_GROUP
             data-type: json
@@ -79,14 +79,14 @@ seata:
     type: nacos
     nacos:
       application: seata-server
-      server-addr: 192.168.65.103:8848
+      server-addr: 192.168.65.174:8848
       group: SEATA_GROUP
 
   config:
     # 指定nacos作为配置中心
     type: nacos
     nacos:
-      server-addr: 192.168.65.103:8848
+      server-addr: 192.168.65.174:8848
       namespace: 7e838c12-8554-4231-82d5-6d93573ddf32
       group: SEATA_GROUP
       data-id: seataServer.properties

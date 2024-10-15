@@ -242,6 +242,8 @@
                 <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>${mongodb-spring-boot-starter.version}</version>
             </dependency>
+
+
         </dependencies>
     </dependencyManagement>
 
